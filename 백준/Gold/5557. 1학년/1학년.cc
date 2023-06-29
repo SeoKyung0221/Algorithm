@@ -9,13 +9,13 @@ ll go(int idx, int cnt){
 	ll &ret = dp[idx][cnt];
 	if(ret) return ret;
 	
-	if(idx == n-2){
+	if(idx == n-1){
 		if(cnt == a[n-1]) return 1;
 		return 0;
 	}
 
-	ret += go(idx + 1, cnt + a[idx+1]);
-	ret += go(idx + 1, cnt - a[idx+1]);
+	ret += go(idx + 1, cnt + a[idx]);
+	ret += go(idx + 1, cnt - a[idx]);
 	
 	return ret;
 }
@@ -26,5 +26,5 @@ int main(){
 	for(int i = 0; i < n; i++){
 		cin >> a[i];
 	}
-	cout << go(0, a[0]) << "\n";
+	cout << go(1, a[0]) << "\n";
 }
