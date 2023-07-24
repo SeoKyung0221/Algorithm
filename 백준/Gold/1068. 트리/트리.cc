@@ -16,14 +16,12 @@ int dfs(int here){
 }
 int main(){
 	cin >> n;
-	
 	for(int i = 0; i < n; i++){
 		cin >> num;
 		if(num == -1) root = i;
 		else adj[num].push_back(i);
 	}
-	
 	cin >> num;
-	if(num == root) cout << 0 << "\n";
+	if(num == root) cout << "0\n";
 	else cout << dfs(root) << "\n";
 }
