@@ -1,22 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
-double a, b, dp[20][20][20], ret;
+double a, b, dp[20][20][20];
 bool che[20];
-
-double solve(int idx, int a_, int b_){
-	if(idx == 18) return che[a_] || che[b_] ?  1 : 0;
-	
-	double &ret = dp[idx][a_][b_];
-	if(ret > -0.5) return ret;
-	
-	ret = 0.0;
-	ret += solve(idx + 1, a_, b_) * (1 - a) * (1 - b);
-	ret += solve(idx + 1, a_ + 1, b_) * a * (1 - b);
-	ret += solve(idx + 1, a_, b_ + 1) * (1 - a) * b;
-	ret += solve(idx + 1, a_ + 1, b_ + 1) * a * b;
-	
-	return ret;
-}
 
 void era(){
 	for(int i = 2; i <= 20; i++){
@@ -30,6 +15,20 @@ void era(){
 		else che[i] = 1;
 	}
 	return;
+}
+double solve(int idx, int A_, int B_){
+	if(idx == 18) return che[A_] || che[B_] ? 1.0 : 0.0;
+	
+	double &ret = dp[idx][A_][B_];
+	if(ret > -0.5) return ret;
+	
+	ret = 0.0;
+	ret += solve(idx+1, A_, B_) * (1-a) * (1-b);
+	ret += solve(idx+1, A_ + 1, B_) * a * (1-b);
+	ret += solve(idx+1, A_, B_ + 1) * (1-a) * b;
+	ret += solve(idx+1, A_ + 1, B_ + 1) * a * b;
+	
+	return ret;
 }
 int main(){
 	fill(&dp[0][0][0], &dp[0][0][0] + 20 * 20 * 20, -1);
