@@ -6,7 +6,7 @@ int solve(int idx, int j, int w){
 	if(idx == m) return 0;
 	
 	int &ret = dp[idx][j][w];
-	if(ret != 0) return ret;
+	if(ret != -1) return ret;
 	
 	ret = max(ret, solve(idx+1, j, c));
 	for(int i = 0; i < n; i++){
@@ -18,6 +18,7 @@ int solve(int idx, int j, int w){
 	return ret;
 }
 int main(){
+	fill(&dp[0][0][0], &dp[0][0][0] + 11 * (1 << 14) * 24, -1);
 	cin >> n >> m >> c;
 	for(int i = 0; i < n; i++){
 		cin >> a[i];
