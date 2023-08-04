@@ -1,14 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-bool check(string s){ // 올바른 괄호 문자열??
+bool check(string s){
     int cnt = 0;
     for(int i = 0; i < s.size(); i++){
         if(s[i] == '(') cnt++;
         else cnt--;
         if(cnt < 0) return false;
     }
-    return cnt == 0 ? true : false;
+    return (cnt == 0) ? true : false;
 }
 string solution(string p) {
     if(check(p)) return p;
@@ -21,17 +21,17 @@ string solution(string p) {
         }
     }
     string u = p.substr(0, i+1);
-    string v = p.substr(i+1, p.size()-(i+1));
+    string v = p.substr(i+1, p.size() - (i+1));
     if(check(u)){
         return u + solution(v);
     }else{
         string s = "";
-        s += '(';
+        s += "(";
         s += solution(v);
-        s += ')';
+        s += ")";
         u = u.substr(1, u.size() - 2);
-        for(int j = 0; j < u.size(); j++){
-            if(u[j] == '(') s += ')';
+        for(int j : u){
+            if(j == '(') s += ')';
             else s += '(';
         }
         return s;
