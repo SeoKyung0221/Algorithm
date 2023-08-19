@@ -1,39 +1,30 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-const ll mod = 1000000000;
-int n;
-ll dp[104][10], ret;
+const int mod = 1000000000;
+ll n, dp[10][104];
 
-ll go(int idx, int num){
+ll go(int num, int idx){
 	if(idx == n) return 1;
-	if(num < 0 || num > 9) return 0;
 	
-	ll &ret = dp[idx][num];
+	ll &ret = dp[num][idx];
 	if(ret != 0) return ret;
 	
-	ret = 0;
-	if(num == 0){
-		ret = go(idx + 1, num + 1);
-		ret %= mod;
-	}
-	else if(num == 9){
-		ret = go(idx + 1, num - 1);
-		ret %= mod; 
-	}
+	if(num == 0) ret += go(num + 1, idx + 1);
+	else if(num == 9) ret += go(num - 1, idx + 1);
 	else{
-		ret = go(idx + 1, num - 1) + go(idx + 1, num + 1);	
-		ret %= mod;
+		ret += go(num - 1, idx + 1) + go(num + 1, idx + 1);
 	}
 	ret %= mod;
+	
 	return ret;
 }
 int main(){
 	cin >> n;
-	ll ret = 0;
+	ll cnt = 0;
 	for(int i = 1; i <= 9; i++){
-		ret += go(1, i);
-		ret %= mod;
+		cnt += go(i, 1);
+		cnt %= mod;
 	}
-	cout << ret << "\n";
+	cout << cnt << "\n";
 }
