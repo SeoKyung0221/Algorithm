@@ -1,15 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n, m, a[10][10], ret = 1e9;
-vector<pair<int,int>> v;
 const int dy[] = {-1, 0, 1, 0};
 const int dx[] = {0, 1, 0, -1};
+int n, m, a[10][10], ret = 1e9;
+vector<pair<int,int>> v;
 
 vector<pair<int,int>> extendCCTV(int here, int dir){
 	vector<pair<int,int>> _change;
 	int y = v[here].first;
 	int x = v[here].second;
-	
 	if(a[y][x] == 1){
 		while(true){
 			int ny = y + dy[dir];
@@ -26,7 +25,7 @@ vector<pair<int,int>> extendCCTV(int here, int dir){
 	}else if(a[y][x] == 2){
 		for(int i = 0; i <= 2; i += 2){
 			int _y = y;
-            int _x = x;
+			int _x = x;
 			while(true){
 				int ny = _y + dy[(dir + i) % 4];
 				int nx = _x + dx[(dir + i) % 4];
@@ -43,7 +42,7 @@ vector<pair<int,int>> extendCCTV(int here, int dir){
 	}else if(a[y][x] == 3){
 		for(int i = 0; i < 2; i++){
 			int _y = y;
-            int _x = x;
+			int _x = x;
 			while(true){
 				int ny = _y + dy[(dir + i) % 4];
 				int nx = _x + dx[(dir + i) % 4];
@@ -60,7 +59,7 @@ vector<pair<int,int>> extendCCTV(int here, int dir){
 	}else if(a[y][x] == 4){
 		for(int i = 0; i < 3; i++){
 			int _y = y;
-            int _x = x;
+			int _x = x;
 			while(true){
 				int ny = _y + dy[(dir + i) % 4];
 				int nx = _x + dx[(dir + i) % 4];
@@ -77,7 +76,7 @@ vector<pair<int,int>> extendCCTV(int here, int dir){
 	}else if(a[y][x] == 5){
 		for(int i = 0; i < 4; i++){
 			int _y = y;
-            int _x = x;
+			int _x = x;
 			while(true){
 				int ny = _y + dy[(dir + i) % 4];
 				int nx = _x + dx[(dir + i) % 4];
@@ -114,13 +113,11 @@ void dfs(int here){
 	}
 }
 int main(){
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL); cout.tie(NULL);
 	cin >> n >> m;
 	for(int i = 0; i < n; i++){
 		for(int j = 0; j < m; j++){
 			cin >> a[i][j];
-			if(a[i][j] != 0 && a[i][j] != 6) v.push_back({i,j});
+			if(a[i][j] != 0 && a[i][j] != 6) v.push_back({i, j});
 		}
 	}
 	dfs(0);
