@@ -1,19 +1,18 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-ll n, m, a[100004], mx, ret = 1e9;
+ll n, m, mx, a[100004], ret = 1e9;
 
 bool check(ll mid){
-	if(mx > mid) return false;
-	ll cnt = 1;
+	if(mid < mx) return false;
 	ll temp = mid;
+	ll cnt = 1;
 	for(int i = 0; i < n; i++){
-		if(mid - a[i] < 0){
-			mid = temp;
+		if(temp - a[i] < 0){
 			cnt++;
-			mid -= a[i];
-		}
-		else mid -= a[i];
+			temp = mid;
+			temp -= a[i];
+		}else temp -= a[i];
 	}
 	return cnt <= m;
 }
@@ -27,11 +26,9 @@ int main(){
 	while(l <= h){
 		ll mid = (l + h) / 2;
 		if(check(mid)){
-			h = mid - 1;
 			ret = min(ret, mid);
-		}else{
-			l = mid + 1;
-		}
+			h = mid - 1;			
+		}else l = mid + 1;
 	}
 	cout << ret << "\n";
 }
