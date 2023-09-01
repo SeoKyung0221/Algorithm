@@ -18,6 +18,7 @@ int main(){
 			e++;
 		}
 	}
-	ret += ll((e - s) * (e - s + 1) / 2);
+	ret += (ll)((e - s) * (e - s + 1) / 2);
+	
 	cout << ret << "\n";
 }
