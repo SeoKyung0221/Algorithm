@@ -21,13 +21,12 @@ void makeDragon(){
 	}
 	return;
 }
-
 void go(int x, int y, int d, int g){
 	a[y][x] = 1;
 	for(int i = 0; i <= g; i++){
 		for(int j : dragon[d][i]){
-			x += dx[j];
 			y += dy[j];
+			x += dx[j];
 			a[y][x] = 1;
 		}
 	}
@@ -42,9 +41,7 @@ int main(){
 	}
 	for(int i = 0; i <= 100; i++){
 		for(int j = 0; j <= 100; j++){
-			if(a[i][j] && a[i][j+1] && a[i+1][j] && a[i+1][j+1]){
-				ret++;
-			}
+			if(a[i][j] && a[i + 1][j] && a[i][j+1] && a[i+1][j+1]) ret++;
 		}
 	}
 	cout << ret << "\n";
