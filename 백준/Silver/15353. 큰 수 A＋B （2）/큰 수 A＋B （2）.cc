@@ -21,10 +21,6 @@ string string_add(string a, string b){
 	return ret;
 }
 int main(){
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL); cout.tie(NULL);
-	
 	cin >> a >> b;
 	cout << string_add(a, b) << "\n";
-	return 0;
 }
