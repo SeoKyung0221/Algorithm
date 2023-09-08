@@ -8,31 +8,30 @@ vector<int> tree[11][11];
 void springSummer(){
 	for(int i = 0; i < n; i++){
 		for(int j = 0; j < n; j++){
-			int c = 0;
-			vector<int> temp;
 			sort(tree[i][j].begin(), tree[i][j].end());
+			vector<int> temp;
+			int c = 0;
 			for(int k = 0; k < tree[i][j].size(); k++){
-				if(tree[i][j][k] <= b[i][j]){
+				if(tree[i][j][k] <= a[i][j]){
+					a[i][j] -= tree[i][j][k];
 					temp.push_back(tree[i][j][k] + 1);
-					b[i][j] -= tree[i][j][k];
 				}else{
 					c += tree[i][j][k] / 2;
 				}
 			}
 			tree[i][j] = temp;
-			b[i][j] += c;
+			a[i][j] += c;
 		}
 	}
 }
 void fall(){
 	for(int i = 0; i < n; i++){
 		for(int j = 0; j < n; j++){
-			for(int k = 0; k < tree[i][j].size(); k++){
-				if(tree[i][j].size() == 0) continue;
-				if(tree[i][j][k] % 5 == 0){
-					for(int h = 0; h < 8; h++){
-						int ny = i + dy[h];
-						int nx = j + dx[h];
+			for(int t: tree[i][j]){
+				if(t % 5 == 0){
+					for(int k = 0; k < 8; k++){
+						int ny = i + dy[k];
+						int nx = j + dx[k];
 						if(ny < 0 || ny >= n || nx < 0 || nx >= n) continue;
 						tree[ny][nx].push_back(1);
 					}
@@ -44,16 +43,16 @@ void fall(){
 void winter(){
 	for(int i = 0; i < n; i++){
 		for(int j = 0; j < n; j++){
-			b[i][j] += a[i][j];
+			a[i][j] += b[i][j];
 		}
 	}
 }
 int main(){
-	fill(&b[0][0], &b[0][0] + 11 * 11, 5);
+	fill(&a[0][0], &a[0][0] + 11 * 11, 5);
 	cin >> n >> m >> k;
 	for(int i = 0; i < n; i++){
 		for(int j = 0; j < n; j++){
-			cin >> a[i][j];
+			cin >> b[i][j];
 		}
 	}
 	for(int i = 0; i < m; i++){
@@ -71,5 +70,4 @@ int main(){
 		}
 	}
 	cout << ret << "\n";
-	return 0;
 }
