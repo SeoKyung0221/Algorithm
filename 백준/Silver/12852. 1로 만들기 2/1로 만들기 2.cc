@@ -1,14 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n, dp[1000004];
 const int INF = 1e9;
+int n, dp[1000004];
 
 void go(int here){
 	if(here == 0) return;
 	cout << here << "\n";
-	if(here % 3 == 0 && dp[here] == (dp[here / 3] + 1)) go(here / 3);
-	else if(here % 2 == 0 && dp[here] == (dp[here / 2] + 1)) go(here / 2);
-	else if(dp[here] == (dp[here-1] + 1)) go(here - 1);
+	if(here % 3 == 0 && dp[here] == dp[here / 3] + 1) go(here / 3);
+	else if(here % 2 == 0 && dp[here] == dp[here / 2] + 1) go(here / 2);
+	else if(dp[here] == dp[here - 1] + 1) go(here - 1);
 	return;
 }
 int main(){
