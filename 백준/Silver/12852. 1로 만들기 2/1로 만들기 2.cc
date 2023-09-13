@@ -1,18 +1,19 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int INF = 1e9;
 int n, dp[1000004];
 
 void go(int here){
-	if(here == 0) return;
-	cout << here << "\n";
-	if(here % 3 == 0 && dp[here] == dp[here / 3] + 1) go(here / 3);
+	if(here < 1) return;
+	
+	cout << here << " ";
+	
+	if(dp[here] == dp[here - 1] + 1) go(here - 1);
 	else if(here % 2 == 0 && dp[here] == dp[here / 2] + 1) go(here / 2);
-	else if(dp[here] == dp[here - 1] + 1) go(here - 1);
+	else if(here % 3 == 0 && dp[here] == dp[here / 3] + 1) go(here / 3);
 	return;
 }
 int main(){
-	fill(dp, dp + 1000004, INF);
+	fill(dp, dp + 1000004, 1e9);
 	cin >> n;
 	dp[1] = 0;
 	for(int i = 2; i <= n; i++){
@@ -22,4 +23,5 @@ int main(){
 	}
 	cout << dp[n] << "\n";
 	go(n);
+	return 0;
 }
