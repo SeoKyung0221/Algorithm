@@ -3,12 +3,13 @@ using namespace std;
 const int INF = 1e9;
 const int dy[] = {-1, 0, 1, 0};
 const int dx[] = {0, 1, 0, -1};
-int t, n, a[130][130], dist[130][130];
-priority_queue<pair<int, int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+int t, n, a[129][129], dist[129][129];
+priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int,int>>> pq;
+
 int main(){
 	while(true){
-		fill(&dist[0][0], &dist[0][0] + 130 * 130, INF);
 		t++;
+		fill(&dist[0][0], &dist[0][0] + 129 * 129, INF);
 		cin >> n;
 		if(n == 0) break;
 		for(int i = 0; i < n; i++){
@@ -34,6 +35,6 @@ int main(){
 				}
 			}
 		}
-		cout << "Problem " << t << ": " << dist[n-1][n-1] << "\n";
+		cout << "Problem " << t << ": " << dist[n-1][n-1] << "\n"; 
 	}
-}
+} 
