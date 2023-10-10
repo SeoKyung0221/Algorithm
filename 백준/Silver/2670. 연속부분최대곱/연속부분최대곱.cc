@@ -1,14 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
 int n;
-double a[10004], ret;
+double a[10004], temp, ret;
 
 int main(){
 	cin >> n;
 	for(int i = 0; i < n; i++){
 		cin >> a[i];
 	}
-	double temp = 1;
+	temp = 1;
 	for(int i = 0; i < n; i++){
 		temp *= a[i];
 		ret = max(ret, temp);
