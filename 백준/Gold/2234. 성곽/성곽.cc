@@ -2,10 +2,11 @@
 using namespace std;
 const int dy[] = {0, -1, 0, 1};
 const int dx[] = {-1, 0, 1, 0};
-int n, m, a[54][54], visited[54][54], cnt, ret2, ret3, combSize[2504];
+int n, m, a[54][54], cnt, ret2, ret3, combSize[2504], visited[54][54];
 
-int dfs(int y, int x, int cnt){
+int dfs(int y, int x){
 	int ret = 1;
+	
 	visited[y][x] = cnt;
 	for(int i = 0; i < 4; i++){
 		if(!(a[y][x] & (1 << i))){
@@ -13,7 +14,7 @@ int dfs(int y, int x, int cnt){
 			int nx = x + dx[i];
 			if(ny < 0 || ny >= m || nx < 0 || nx >= n) continue;
 			if(visited[ny][nx]) continue;
-			ret += dfs(ny, nx, cnt);
+			ret += dfs(ny, nx);
 		}
 	}
 	return ret;
@@ -29,7 +30,7 @@ int main(){
 		for(int j = 0; j < n; j++){
 			if(!visited[i][j]){
 				cnt++;
-				combSize[cnt] = dfs(i, j, cnt);
+				combSize[cnt] = dfs(i, j);
 				ret2 = max(ret2, combSize[cnt]);
 			}
 		}
@@ -37,8 +38,8 @@ int main(){
 	for(int i = 0; i < m; i++){
 		for(int j = 0; j < n; j++){
 			if(i + 1 < m){
-				int b= visited[i][j];
-				int c= visited[i+1][j];
+				int b = visited[i][j];
+				int c = visited[i+1][j];
 				if(b != c){
 					ret3 = max(ret3, combSize[b] + combSize[c]);
 				}
@@ -53,4 +54,5 @@ int main(){
 		}
 	}
 	cout << cnt << "\n" << ret2 << "\n" << ret3 << "\n";
+	return 0;
 }

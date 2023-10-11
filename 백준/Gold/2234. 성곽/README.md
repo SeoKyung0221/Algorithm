@@ -10,6 +10,10 @@
 
 너비 우선 탐색, 비트마스킹, 그래프 이론, 그래프 탐색
 
+### 제출 일자
+
+2023년 10월 9일 03:02:50
+
 ### 문제 설명
 
 <p style="text-align: center;"><img alt="" src="https://www.acmicpc.net/JudgeOnline/upload/201008/cas.PNG" style="height:189px; width:307px"></p>
