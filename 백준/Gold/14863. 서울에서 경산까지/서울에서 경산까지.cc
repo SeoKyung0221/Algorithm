@@ -1,33 +1,29 @@
-#include<bits/stdc++.h>
-using namespace std;
-typedef long long ll;
-ll n, k, dp[104][100004], p, q;
-vector<pair<ll,ll>> a, b;
+#include <bits/stdc++.h> 
+using namespace std; 
+typedef long long ll; 
+int n, k, dp[101][100001]; 
+struct B{
+    int _time, pay; 
+}; 
+B a[101], b[101];
 
-ll solve(ll cnt, ll time){
-	if(time > k) return -1e18;
-	if(cnt >= n) return 0;
-	
-	ll ret = dp[cnt][time];
-	if(ret != -1) return ret;
-	
-	ret = 0;
-	ll left = solve(cnt + 1, time + a[cnt].first) + a[cnt].second;
-	ll right = solve(cnt + 1, time + b[cnt].first) + b[cnt].second;
-	
-	ret = max(left, right);
-	
-	return ret;
+int go(int here, int _time){
+    if(here == n) return 0;  
+    int &ret = dp[here][_time]; 
+    if(ret) return ret; 
+    ret = -1e6;
+    if(_time - a[here]._time >= 0)ret = max(ret, go(here + 1, _time - a[here]._time) + a[here].pay); 
+    if(_time - b[here]._time >= 0)ret = max(ret, go(here + 1, _time - b[here]._time) + b[here].pay); 
+    return ret; 
 }
 int main(){
-	memset(dp, -1, sizeof(dp));
-	cin >> n >> k;
-	for(int i = 0; i < n; i++){
-		cin >> p >> q;
-		a.push_back({p,q});
-		cin >> p >> q;
-		b.push_back({p,q});
-	}
-	cout << solve(0, 0) << "\n";
-	return 0;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL); 
+    cin >> n >> k; 
+    for(int i = 0; i < n; i++){
+        cin >> a[i]._time >> a[i].pay >> b[i]._time >> b[i].pay; 
+    } 
+    cout << go(0, k) << "\n"; 
+    return 0;
 }
