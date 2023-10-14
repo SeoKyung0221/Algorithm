@@ -28,26 +28,29 @@ int main(){
 		}
 	}
 	while(true){
-        bool flag =0;
-        fill(&visited[0][0], &visited[0][0] + 54 * 54, 0);
-        for(int i=0; i<n; i++){
-            for(int j=0; j<n; j++){
-                if(!visited[i][j]){
-                    v.clear();
-                    visited[i][j] = 1;
-                    v.push_back({i,j});
-                    sum = a[i][j];
-                    dfs(i,j);
-                    if(v.size() == 1) continue;  
-                    for(pair<int,int> b : v){ 
-                        a[b.first][b.second] = sum / v.size();
-                        flag = 1;
-                    }
-                } 
-            }
-        }
-        if(!flag) break;  
-        ret++;
-    } 
+		memset(visited, 0, sizeof(visited));
+		bool flag = 0;
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < n; j++){
+				if(!visited[i][j]){
+					v.clear();
+					visited[i][j] = 1;
+					sum = 0;
+					sum += a[i][j];
+					v.push_back({i,j});
+					dfs(i, j);
+					if(v.size() == 1){
+						continue;
+					}
+					for(auto k : v){
+						flag = 1;
+						a[k.first][k.second] = sum / v.size();
+					}
+				}
+			}
+		}
+		if(flag == 0) break;
+		ret++;
+	}
 	cout << ret << "\n";
 }
