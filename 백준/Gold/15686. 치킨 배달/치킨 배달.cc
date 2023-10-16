@@ -4,7 +4,7 @@ int n, m, a[54][54], ret = 1e9;
 vector<pair<int,int>> h, c;
 vector<vector<int>> v;
 
-void combi(int start, vector<int> &b){
+void combi(int start, vector<int> b){
 	if(b.size() == m){
 		v.push_back(b);
 		return;
@@ -22,17 +22,17 @@ int main(){
 		for(int j = 0; j < n; j++){
 			cin >> a[i][j];
 			if(a[i][j] == 1) h.push_back({i, j});
-			else if(a[i][j] == 2) c.push_back({i, j});
+			if(a[i][j] == 2) c.push_back({i, j});
 		}
 	}
 	vector<int> b;
 	combi(-1, b);
-	for(vector<int> i : v){
+	for(vector<int> cl : v){
 		int sum = 0;
-		for(auto j : h){
+		for(auto p : h){
 			int cur = 1e9;
-			for(int k : i){
-				cur = min(cur, abs(j.first - c[k].first) + abs(j.second - c[k].second));
+			for(int ch : cl){
+				cur = min(cur, abs(p.first - c[ch].first) + abs(p.second - c[ch].second));
 			}
 			sum += cur;
 		}
