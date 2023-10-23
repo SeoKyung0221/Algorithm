@@ -1,15 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n, mp, mf, ms, mv, ret = 1e9;
+const int INF = 1e9;
+int n, mp, mf, ms, mv, ret = INF;
 struct A{
-	int p = 0;
-	int f = 0;
-	int s = 0;
-	int v = 0;
-	int c = 0;
+	int p, f, s, v, c;
 };
+
 A a[16];
-map<int, vector<vector<int>>> ma;
+map<int, vector<vector<int>>> mpp;
+ 
 int main(){
 	cin >> n >> mp >> mf >> ms >> mv;
 	for(int i = 0; i < n; i++){
@@ -20,7 +19,7 @@ int main(){
 		vector<int> v;
 		for(int j = 0; j < n; j++){
 			if(i & (1 << j)){
-				v.push_back(j + 1);
+				v.push_back(j+1);
 				cp += a[j].p;
 				cf += a[j].f;
 				cs += a[j].s;
@@ -31,15 +30,15 @@ int main(){
 		if(cp >= mp && cf >= mf && cs >= ms && cv >= mv){
 			if(ret >= cc){
 				ret = cc;
-				ma[ret].push_back(v);
+				mpp[ret].push_back(v);
 			}
 		}
 	}
-	sort(ma[ret].begin(), ma[ret].end());
-	if(ret == 1e9) cout << "-1\n";
+	if(ret == INF) cout << -1 << "\n";
 	else{
+		sort(mpp[ret].begin(), mpp[ret].end());
 		cout << ret << "\n";
-		for(int i : ma[ret][0]){
+		for(int i : mpp[ret][0]){
 			cout << i << " ";
 		}
 	}
