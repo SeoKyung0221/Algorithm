@@ -5,12 +5,11 @@ char a[68][68];
 
 string go(int y, int x, int n){
 	if(n == 1) return string(1, a[y][x]);
-	string ret = "";
 	for(int i = y; i < y + n; i++){
 		for(int j = x; j < x + n; j++){
 			if(a[y][x] != a[i][j]){
-				ret += "(";
-				ret += go(y, x, n / 2);
+				string ret = "(";
+				ret += go(y, x, n/2);
 				ret += go(y, x + n/2, n/2);
 				ret += go(y + n/2, x, n/2);
 				ret += go(y + n/2, x + n/2, n/2);
