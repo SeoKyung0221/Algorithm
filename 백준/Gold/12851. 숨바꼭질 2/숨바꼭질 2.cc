@@ -4,14 +4,10 @@ int n, k, visited[200004], cnt[200004];
 
 int main(){
 	cin >> n >> k;
-	if(n == k){
-		cout << "0\n" << "1\n";
-		return 0;
-	}
 	visited[n] = 1;
+	cnt[n] = 1;
 	queue<int> q;
 	q.push(n);
-	cnt[n] = 1;
 	while(q.size()){
 		int here = q.front();
 		q.pop();
@@ -26,6 +22,5 @@ int main(){
 			}
 		}
 	}
-	cout << visited[k] - 1 << "\n";
-	cout << cnt[k] << "\n"; 
+	cout << visited[k] - 1 << "\n" << cnt[k] << "\n";
 }
