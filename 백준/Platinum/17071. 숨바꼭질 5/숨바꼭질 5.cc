@@ -1,7 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int MAX_N = 500000;
-int n, k, visited[2][MAX_N + 4], ok, turn = 1;
+int n, k, visited[2][500004], turn = 1;
 
 int main(){
 	cin >> n >> k;
@@ -9,34 +8,39 @@ int main(){
 		cout << 0 << "\n";
 		return 0;
 	}
-	queue<int> q;
+	
 	visited[0][n] = 1;
+	queue<int> q;
 	q.push(n);
+	int flag = 0;
 	while(q.size()){
 		k += turn;
-		
-		if(k > MAX_N) break;
+		if(k > 500000){
+			break;
+		}
 		if(visited[turn % 2][k]){
-			ok = 1;
+			flag = 1;
 			break;
 		}
 		int qSize = q.size();
 		for(int i = 0; i < qSize; i++){
-			int x = q.front(); q.pop();
-			for(int nx : {x-1, x+1, x*2}){
-				if(nx < 0 || nx > MAX_N || visited[turn % 2][nx]) continue;
-				visited[turn % 2][nx] = 1;
-				if(nx == k){
-					ok = 1;
+			int here = q.front();
+			q.pop();
+			for(int next : {here - 1, here + 1, here * 2}){
+				if(next < 0 || next > 500000) continue;
+				if(visited[turn % 2][next]) continue;
+				if(k == next){
+					flag = 1;
 					break;
 				}
-				q.push(nx);
+				visited[turn % 2][next] = 1;
+				q.push(next);
 			}
-			if(ok) break;
+			if(flag) break;
 		}
-		if(ok) break;
+		if(flag) break;
 		turn++;
 	}
-	if(ok) cout << turn << "\n";
-	else cout << -1 << "\n";
+	if(flag) cout << turn << "\n";
+	else cout << -1 << '\n';
 }
