@@ -4,10 +4,10 @@ const int dy[] = {-1, 0, 1, 0};
 const int dx[] = {0, 1, 0, -1};
 int n, m, sy, sx, y, x, visited_water[1504][1504], visited_swan[1504][1504], ret;
 char a[1504][1504];
-queue<pair<int, int>> water_Q, swan_Q, water_tempQ, swan_tempQ;
+queue<pair<int, int>> water_Q, water_tempQ, swan_Q, swan_tempQ;
 
-void Qclear(queue<pair<int ,int>> &q){
-	queue<pair<int, int>> p;
+void Qclear(queue<pair<int,int>> &q){
+	queue<pair<int,int>> p;
 	q = p;
 }
 bool move_swan(){
@@ -30,7 +30,7 @@ bool move_swan(){
 	}
 	return false;
 }
-void water_melting(){
+void melting_water(){
 	while(water_Q.size()){
 		tie(y, x) = water_Q.front();
 		water_Q.pop();
@@ -56,17 +56,17 @@ int main(){
 				sy = i;
 				sx = j;
 			}
-			if(a[i][j] == 'L' || a[i][j] == '.'){
-				visited_water[1504][1504] = 1;
+			if(a[i][j] == '.' || a[i][j] == 'L'){
+				visited_water[i][j] = 1;
 				water_Q.push({i, j});
 			}
 		}
 	}
-	visited_swan[sy][sx] = 1;
 	swan_Q.push({sy, sx});
+	visited_swan[sy][sx] = 1;
 	while(true){
 		if(move_swan()) break;
-		water_melting();
+		melting_water();
 		swan_Q = swan_tempQ;
 		water_Q = water_tempQ;
 		Qclear(swan_tempQ);
@@ -74,4 +74,5 @@ int main(){
 		ret++;
 	}
 	cout << ret << "\n";
+	return 0;
 }
