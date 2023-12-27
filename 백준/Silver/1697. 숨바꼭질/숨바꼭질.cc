@@ -14,7 +14,7 @@ int main(){
 	while(q.size()){
 		int here = q.front();
 		q.pop();
-		for(int next : {here - 1, here + 1, here * 2}){
+		for(int next : {here * 2, here - 1, here + 1}){
 			if(next < 0 || next > 100000) continue;
 			if(visited[next]) continue;
 			visited[next] = visited[here] + 1;
