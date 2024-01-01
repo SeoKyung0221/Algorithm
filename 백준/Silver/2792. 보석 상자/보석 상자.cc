@@ -1,30 +1,34 @@
 #include<bits/stdc++.h>
 using namespace std;
-typedef long long ll ;
-ll n, m, a[300004], ret = 1e18;
+typedef long long ll;
+ll n, m, a[300004], ret = 1e9;
 
-bool check(int mid){
-	ll num = 0;
+bool check(ll mid){
+	ll temp = 0;
 	for(int i = 0; i < m; i++){
-		num += a[i] / mid;
-		if(a[i] % mid) num++;
+		if(a[i] % mid == 0){
+			temp += a[i] / mid;
+		}else{
+			temp += (a[i] / mid) + 1;
+		}
 	}
-	return n >= num;
+	return n >= temp;
 }
 int main(){
 	cin >> n >> m;
-	ll l = 1, r = 0, mid;
 	for(int i = 0; i < m; i++){
 		cin >> a[i];
-		r = max(r, a[i]);
 	}
-	while(l <= r){
-		mid = (l+r) / 2;
+	ll l = 1, h = 1e9;
+	while(l <= h){
+		ll mid = (l + h) / 2;
 		if(check(mid)){
-			ret = min(ret, mid);
-			r = mid - 1;
+			ret = mid;
+			h = mid - 1;
+		}else{
+			l = mid + 1;
 		}
-		else l = mid + 1;
 	}
 	cout << ret << "\n";
+	return 0;
 }
