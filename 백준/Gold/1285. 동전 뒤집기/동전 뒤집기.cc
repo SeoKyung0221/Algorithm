@@ -11,14 +11,14 @@ void go(int idx){
 			for(int j = 0; j < n; j++){
 				if(a[j] & (1 << i)) cnt++;
 			}
-			sum += min(cnt, n - cnt);
+			sum += min(cnt, n - cnt); 
 		}
 		ret = min(ret, sum);
 		return;
 	}
 	go(idx + 1);
 	a[idx] = ~a[idx];
-	go(idx + 1); 
+	go(idx + 1);
 }
 int main(){
 	cin >> n;
