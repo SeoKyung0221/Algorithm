@@ -15,33 +15,36 @@ int go(int y, int x, int flag){
 	if(ret != 0) return ret;
 	
 	if(flag == 1){
-		if(a[y][x + 1] == 0) ret += go(y, x + 1, 1);
-		int f = 1;
+		if(a[y][x+1] != 1)	ret += go(y, x + 1, 1);
+
+		int cnt = 1;
 		for(int i = 0; i < 3; i++){
 			int ny = y + dy[i];
 			int nx = x + dx[i];
-			if(a[ny][nx] == 1) f = 0;
+			if(a[ny][nx] == 1) cnt = 0;
 		}
-		if(f) ret += go(y + 1, x + 1, 3);
+		if(cnt)	ret += go(y + 1, x + 1, 3);
 	}else if(flag == 2){
-		if(a[y + 1][x] == 0) ret += go(y + 1, x, 2);
-		int f = 1;
+		if(a[y+1][x] != 1) ret += go(y + 1, x, 2); 
+		
+		int cnt = 1;
 		for(int i = 0; i < 3; i++){
 			int ny = y + dy[i];
 			int nx = x + dx[i];
-			if(a[ny][nx] == 1) f = 0;
+			if(a[ny][nx] == 1) cnt = 0;
 		}
-		if(f) ret += go(y + 1, x + 1, 3);
+		if(cnt) ret += go(y + 1, x + 1, 3);
 	}else if(flag == 3){
-		if(a[y][x + 1] == 0) ret += go(y, x + 1, 1);
-		if(a[y + 1][x] == 0) ret += go(y + 1, x, 2);
-		int f = 1;
+		if(a[y][x+1] != 1) ret += go(y, x + 1, 1);
+		if(a[y+1][x] != 1) ret += go(y + 1, x, 2);
+		
+		int cnt = 1;
 		for(int i = 0; i < 3; i++){
 			int ny = y + dy[i];
 			int nx = x + dx[i];
-			if(a[ny][nx] == 1) f = 0;
+			if(a[ny][nx] == 1) cnt = 0;
 		}
-		if(f) ret += go(y + 1, x + 1, 3);
+		if(cnt) ret += go(y + 1, x + 1, 3);
 	}
 	return ret;
 }
@@ -53,4 +56,5 @@ int main(){
 		}
 	}
 	cout << go(0, 1, 1) << "\n";
+	return 0;
 }
