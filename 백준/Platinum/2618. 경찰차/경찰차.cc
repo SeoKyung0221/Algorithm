@@ -1,45 +1,44 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n, w, p, q, dp[1004][1004];
-pair<int, int> a[1004];
+int n, w, a, b, dp[1004][1004];
+vector<pair<int, int>> v;
 
-int dist(int p, int q){
-	return abs(a[p].first - a[q].first) + abs(a[p].second - a[q].second);
+int cal(int a, int b){
+	return abs(v[a].first - v[b].first) + abs(v[a].second - v[b].second);
 }
-int go(int one, int two){
-	if(one == w + 2 || two == w + 2){
+int solve(int one, int two){
+	if(one == w + 1 || two == w + 1){
 		return 0;
 	}
+	
 	int &ret = dp[one][two];
 	if(ret != -1) return ret;
 	
-	ret = 0;
+	ret = 1e9;
 	int next = max(one, two) + 1;
-	
-	ret = min(go(next, two) + dist(one, next), go(one, next) + dist(two, next));
+	ret = min(ret, solve(next, two) + cal(one, next));
+	ret = min(ret, solve(one, next) + cal(two, next));
 	
 	return ret;
 }
 int main(){
-	cin >> n >> w;
 	memset(dp, -1, sizeof(dp));
-	a[1].first = 1, a[1].second = 1;
-	a[2].first = n, a[2].second = n;
-	for(int i = 3; i <= w + 2; i++){
-		cin >> p >> q;
-		a[i].first = p, a[i].second = q;
+	cin >> n >> w;
+	v.push_back({1, 1});
+	v.push_back({n, n});
+	for(int i = 2; i < w + 2; i++){
+		cin >> a >> b;
+		v.push_back({a, b});
 	}
-	cout << go(1, 2) << "\n";
-	
-	int one = 1;
-	int two = 2;
-	for(int i = 3; i <= w + 2; i++){
-		if(dp[i][two] + dist(one, i) > dp[one][i] + dist(two, i)){
-			two = i;
-			cout << 2 << "\n";
+	cout << solve(0, 1) << "\n";
+	int a = 0, b = 1;
+	for(int i = 2; i < w + 2; i++){
+		if(dp[i][b] + cal(i, a) < dp[a][i] + cal(b, i)){
+			cout << "1\n";
+			a = i;
 		}else{
-			one = i;
-			cout << 1 << "\n";
+			cout << "2\n";
+			b = i;
 		}
 	}
 }
