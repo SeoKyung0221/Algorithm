@@ -19,6 +19,8 @@ void update(vector<ll> &tree, ll i , ll diff){
 	return;
 }
 int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
 	cin >> n >> m >> k;
 	vector<ll> tree(n+1);
 	for(ll i = 1; i <= n; i++){
