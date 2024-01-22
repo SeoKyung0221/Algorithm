@@ -1,44 +1,38 @@
 #include<bits/stdc++.h>
 using namespace std;
-int t, n, m, a, b;
-vector<int> v1;
-vector<int> v2;
+typedef long long ll;
+ll te, n, m, num;
 
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
-	cin >> t;
-	while(t--){
-		v1.clear();
-		v2.clear();
+	cin >> te;
+	while(te--){
 		cin >> n;
+		vector<int> v;
 		for(int i = 0; i < n; i++){
-			cin >> a;
-			v1.push_back(a);
+			cin >> num;
+			v.push_back(num);
 		}
+		sort(v.begin(), v.end());
 		cin >> m;
 		for(int i = 0; i < m; i++){
-			cin >> b;
-			v2.push_back(b);
-		}
-		sort(v1.begin(), v1.end());
-
-		for(int i = 0; i < m; i++){
-			int lo = 0, hi = n-1;
-			int mid;
-			int ret = 0;
-			while(lo <= hi){
-				mid = (lo + hi) / 2;
-				if(v2[i] < v1[mid]){
-					hi = mid - 1;
-				} else if(v2[i] > v1[mid]){
-					lo = mid + 1;
-				} else if(v2[i] == v1[mid]){
-					ret = 1;
+			cin >> num;
+			int flag = 0;
+			ll l = 0, h = n-1;
+			while(l <= h){
+				ll mid = (l + h) / 2;
+				if(v[mid] > num){
+					h = mid - 1;
+				}else if(v[mid] < num){
+					l = mid + 1;
+				}else if(v[mid] == num){
+					flag = 1;
 					break;
 				}
 			}
-			cout << ret << "\n";
+			if(flag) cout << "1\n";
+			else cout << "0\n";
 		}
 	}
 }
