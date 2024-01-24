@@ -1,37 +1,32 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-ll s, c, a, ret;
-vector<ll> v;
+ll s, c, a[1000004], sum, temp, ret;
 
 bool check(ll mid){
 	ll cnt = 0;
+	
 	for(int i = 0; i < s; i++){
-		cnt += v[i] / mid;
+		cnt += (a[i] / mid);
 	}
+	
 	return cnt >= c;
 }
-
 int main(){
-	ll sum = 0;
 	cin >> s >> c;
 	for(int i = 0; i < s; i++){
-		cin >> a;
-		v.push_back(a);
-		sum += a;
+		cin >> a[i];
+		sum += a[i];
 	}
-	sort(v.begin(), v.end());
-	
-	ll lo = 1, hi = 1e9;
-	ll mid;
-	while(lo <= hi){
-		mid = (lo+hi) / (1LL * 2);
+	ll l = 1, h = 1e9;
+	while(l <= h){
+		ll mid = (l + h) / 2;
 		if(check(mid)){
-			lo = mid + 1;
-			ret = mid;
-		} else{
-			hi = mid - 1;
+			temp = mid;
+			l = mid + 1;
+		}else{
+			h = mid - 1;
 		}
 	}
-	cout << sum - ret*c << "\n";
+	cout << sum - temp * c << "\n";
 }
