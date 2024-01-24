@@ -31,7 +31,7 @@ int main(){
 			if(!visited[i][j]){
 				ret1++;
 				comp[ret1] = dfs(i, j, ret1);
-				ret2 = max(ret2, comp[ret1]);
+				ret2 = max(ret2, comp[ret1]); 
 			}
 		}
 	}
@@ -40,16 +40,12 @@ int main(){
 			if(i + 1 < n){
 				int a = visited[i][j];
 				int b = visited[i + 1][j];
-				if(a != b){
-					ret3 = max(ret3, comp[a] + comp[b]);
-				}
+				if(a != b) ret3 = max(ret3, comp[a] + comp[b]);
 			}
 			if(j + 1 < m){
 				int a = visited[i][j];
 				int b = visited[i][j + 1];
-				if(a != b){
-					ret3 = max(ret3, comp[a] + comp[b]);
-				}
+				if(a != b) ret3 = max(ret3, comp[a] + comp[b]);
 			}
 		}
 	}
