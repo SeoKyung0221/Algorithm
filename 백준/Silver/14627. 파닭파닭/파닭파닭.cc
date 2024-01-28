@@ -1,24 +1,25 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-ll s, c, a[1000004], sum, temp, ret;
+ll s, c, l, a[1000004], mx, sum, temp;
 
 bool check(ll mid){
-	ll cnt = 0;
+	ll ret = 0;
 	
 	for(int i = 0; i < s; i++){
-		cnt += (a[i] / mid);
+		ret += (a[i] / mid);
 	}
-	
-	return cnt >= c;
+	return ret >= c;
 }
+
 int main(){
 	cin >> s >> c;
 	for(int i = 0; i < s; i++){
 		cin >> a[i];
+		mx = max(a[i], mx);
 		sum += a[i];
 	}
-	ll l = 1, h = 1e9;
+	ll l = 1, h = mx;
 	while(l <= h){
 		ll mid = (l + h) / 2;
 		if(check(mid)){
