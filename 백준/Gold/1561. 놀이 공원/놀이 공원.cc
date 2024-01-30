@@ -1,10 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-ll n, m, a[10004], l, h = 60000000004, temp, ret;
+const ll INF = 60000000004;
+ll n, m, l, h = INF, a[10004], ret;
 
 bool check(ll mid){
-	temp = m;
+	ll temp = m;
 	for(int i = 0; i < m; i++){
 		temp += mid / a[i];
 	}
@@ -16,7 +17,7 @@ int main(){
 		cin >> a[i];
 	}
 	if(n <= m){
-		cout << n;
+		cout << n << "\n";
 		return 0;
 	}
 	while(l <= h){
@@ -28,9 +29,9 @@ int main(){
 			l = mid + 1;
 		}
 	}
-	temp = m;
+	ll temp = m;
 	for(int i = 0; i < m; i++){
-		temp += (ret - 1) / a[i];
+		temp += (ret-1) / a[i];
 	}
 	for(ll i = 0; i < m; i++){
 		if(ret % a[i] == 0) temp++;
@@ -39,4 +40,5 @@ int main(){
 			return 0;
 		}
 	}
+	return 0;
 }
