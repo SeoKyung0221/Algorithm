@@ -28,7 +28,7 @@ int main(){
 			int cur = 0;
 			for(int i = 0; i < n; i++){
 				int k = i * m + j;
-				if((s & (1 << k)) != 0){
+				if((s & (1 << k))){
 					cur = cur * 10 + a[i][j];
 				}else{
 					sum += cur;
