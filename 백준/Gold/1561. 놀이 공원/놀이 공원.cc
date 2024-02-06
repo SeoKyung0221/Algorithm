@@ -1,16 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-ll n, m, a[10004], _time;
+ll n, m, a[10004], temp;
 
 bool check(ll mid){
-	ll temp = m;
-	
+	ll ret = m;
 	for(int i = 0; i < m; i++){
-		temp += (mid / a[i]);
+		ret += mid / a[i];
 	}
-	
-	return temp >= n;
+	return ret >= n;
 }
 int main(){
 	cin >> n >> m;
@@ -21,25 +19,27 @@ int main(){
 		cout << n << "\n";
 		return 0;
 	}
+	
 	ll l = 1, h = 6 * 1e10;
 	while(l <= h){
 		ll mid = (l + h) / 2;
 		if(check(mid)){
-			_time = mid;
+			temp = mid;
 			h = mid - 1;
 		}else{
 			l = mid + 1;
 		}
 	}
-	ll temp = m;
+	ll ret = m;
 	for(int i = 0; i < m; i++){
-		temp += (_time - 1) / a[i];
+		ret += (temp - 1) / a[i];
 	}
 	for(int i = 0; i < m; i++){
-		if(_time % a[i] == 0) temp++;
-		if(temp == n){
+		if(temp % a[i] == 0) ret++;
+		if(ret == n){
 			cout << i + 1 << "\n";
-			break;
+			return 0;
 		}
 	}
+	return 0;
 }
