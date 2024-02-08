@@ -1,50 +1,52 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-int T, N, x;
-string P, order;
-int main(){ 
-	cin >> T;  
-    for(int t = 0; t < T; t++){ 
-        deque<int> D;
-        cin >> P >> N >> order;
-        x = 0;
-        for(char c : order){
-        	if(c == '[' || c == ']') continue;
-        	// 숫자가 나오면 현재 수*10 한 뒤 더함
-            if(c >= '0' && c <= '9') x = x*10 + c-'0';
-            // 아닐 경우 현재 수를 덱에 넣음
-            else{
-                if(x > 0) D.push_back(x);
-                x = 0; 
-            }
-		} 
-		if(x > 0) D.push_back(x);
-        // 초기에는 에러 없음, 뒤집히지 않은 상태
-        bool error = false, rev = false;
- 		for(char a : P){
- 			if(a == 'R') rev = !rev; 
- 			else{
-                // 비어있는데 제거하려 하면 에러
-                if(D.empty()){
-                    error = true;
-                    break;
-                }
-                if(rev) D.pop_back();
-                else D.pop_front(); 
+int te, n;
+string p, q;
+
+int main(){
+	cin >> te;
+	while(te--){
+		cin >> p >> n >> q;
+		deque<int> dq;
+		int x = 0;
+		for(char a : q){
+			if(a == '[' || a == ']') continue;
+			else if(a >= '0' && a <= '9') x = x * 10 + a - '0';
+			else{
+				if(x > 0) dq.push_back(x);
+				x = 0;
 			}
-		}  
-        // 에러가 발생한 경우
-        if(error) cout << "error" << '\n';
-        // 아닐 경우 덱의 원소를 하나하나 출력
-        else{
-        	cout << "["; 
-            // 덱이 뒤집힌 상태면 진짜로 뒤집어 준다.
-            if(rev) reverse(D.begin(), D.end());
-            for(int i = 0; i < D.size(); i++){
-        		cout << D[i];  
-                if(i < D.size()-1) cout << ",";
-            }
-        	cout << "]\n";  
-        }
-    }
-} 
+		}
+		if(x > 0) dq.push_back(x);
+		
+		int rFlag = 0;
+		int flag = 0;
+		
+		for(char a : p){
+			if(a == 'R') rFlag = !rFlag;
+			else{
+				if(dq.empty()){
+					flag = 1;
+					break;
+				}
+				if(rFlag){
+					dq.pop_back();
+				}else{
+					dq.pop_front();
+				}
+			}
+		}
+		if(flag) cout << "error\n";
+		else{
+			if(rFlag) reverse(dq.begin(), dq.end());
+			cout << "[";
+			for(int i = 0; i < dq.size(); i++){
+				cout << dq[i];
+				if(i < dq.size() - 1){
+					cout << ",";
+				}
+			}
+			cout << "]\n";
+		}
+	}
+}
