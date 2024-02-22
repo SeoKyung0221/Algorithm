@@ -4,7 +4,6 @@ int n = 10, a[11][11], ret = 1e9;
 map<int, int> mp;
 
 bool check(int y, int x, int cnt){
-	if(y + cnt > n || x + cnt > n) return false;
 	for(int i = y; i < y + cnt; i++){
 		for(int j = x; j < x + cnt; j++){
 			if(a[i][j] == 0) return false;
@@ -28,7 +27,6 @@ void go(int y, int x, int cnt){
 		go(y + 1, 0, cnt);
 		return;
 	}
-	
 	if(y == n){
 		ret = min(ret, cnt);
 		return;
@@ -36,10 +34,11 @@ void go(int y, int x, int cnt){
 	
 	if(a[y][x] == 0){
 		go(y, x + 1, cnt);
+		return;
 	}else{
 		for(int i = 5; i >= 1; i--){
+			if(mp[i] == 5) continue;
 			if(check(y, x, i)){
-				if(mp[i] == 5) continue;
 				mp[i]++;
 				draw(y, x, i, 0);
 				go(y, x + i, cnt + 1);
@@ -48,11 +47,8 @@ void go(int y, int x, int cnt){
 			}
 		}
 	}
-	return;
 }
 int main(){
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL); cout.tie(NULL);
 	for(int i = 0; i < n; i++){
 		for(int j = 0; j < n; j++){
 			cin >> a[i][j];
