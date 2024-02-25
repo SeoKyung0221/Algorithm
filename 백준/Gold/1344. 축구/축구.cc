@@ -1,40 +1,37 @@
 #include<bits/stdc++.h>
 using namespace std;
-double a, b, dp[20][20][20];
-bool che[20];
+double a, b, dp[19][19][19];
 
-void era(){
-	for(int i = 2; i <= 20; i++){
-		if(che[i]) continue;
-		for(int j = 2 * i; j <= 20; j += i){
-			che[j] = 1;
-		}
+bool check(int n){
+	if(n <= 1) return 0;
+	if(n == 2) return 1;
+	if(n % 2 == 0) return 0;
+	for(int i = 2; i * i <= n; i++){
+		if(n % i == 0) return 0;
 	}
-	for(int i = 2; i <= 20; i++){
-		if(che[i] == 1) che[i] = 0;
-		else che[i] = 1;
-	}
-	return;
+	return 1;
 }
-double solve(int idx, int A_, int B_){
-	if(idx == 18) return che[A_] || che[B_] ? 1.0 : 0.0;
+double solve(int idx, int p, int q){
+	if(idx == 18){
+		if(check(p) || check(q)) return 1.0;
+		else return 0.0;
+	}
 	
-	double &ret = dp[idx][A_][B_];
-	if(ret > -0.5) return ret;
+	double &ret = dp[idx][p][q];
+	if(ret > -1) return ret;
 	
 	ret = 0.0;
-	ret += solve(idx+1, A_, B_) * (1-a) * (1-b);
-	ret += solve(idx+1, A_ + 1, B_) * a * (1-b);
-	ret += solve(idx+1, A_, B_ + 1) * (1-a) * b;
-	ret += solve(idx+1, A_ + 1, B_ + 1) * a * b;
+	ret += solve(idx + 1, p, q) * (1 - a) * (1 - b);
+	ret += solve(idx + 1, p + 1, q) * a * (1 - b);
+	ret += solve(idx + 1, p, q + 1) * (1 - a) * b;
+	ret += solve(idx + 1, p + 1, q + 1) * a * b;
 	
 	return ret;
 }
 int main(){
-	fill(&dp[0][0][0], &dp[0][0][0] + 20 * 20 * 20, -1);
+	memset(dp, -1.0, sizeof(dp));
 	cin >> a >> b;
-	a /= 100;
-	b /= 100;
-	era();
+	a = a / 100, b = b / 100;
+	
 	printf("%0.6lf", solve(0, 0, 0));
 }
