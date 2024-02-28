@@ -1,51 +1,56 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int INF = 1e9;
-int n, m, x, a, b, c, dist[1004], dist2[1004], ret = -1;
-vector<pair<int,int>> adj[1004];
-priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+int n, m, x, a, b, t, dist[1004], dist_[1004], ret;
+vector<pair<int, int>> adj[1004];
+
 int main(){
-	fill(dist, dist+1004, INF);
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+	
 	cin >> n >> m >> x;
 	for(int i = 0; i < m; i++){
-		cin >> a >> b >> c;
-		adj[a].push_back({b,c});
+		cin >> a >> b >> t;
+		adj[a].push_back({t, b});
 	}
-	dist[x] = 0;
-	pq.push({x, 0});
+	
+	fill(dist_, dist_ + 1004, 1e9);
+	dist_[x] = 0;
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+	pq.push({0, x});
 	while(pq.size()){
-		int here = pq.top().first;
-		int here_dist = pq.top().second;
+		int here = pq.top().second;
+		int here_dist = pq.top().first;
 		pq.pop();
-		if(dist[here] != here_dist) continue;
-		for(auto j : adj[here]){
-			int next = j.first;
-			int next_dist = j.second;
-			if(dist[next] > dist[here] + next_dist){
-				dist[next] = dist[here] + next_dist;
-				pq.push({next, dist[next]});
+		if(dist_[here] != here_dist) continue;
+		for(auto to : adj[here]){
+			int next = to.second;
+			int next_dist = to.first;
+			if(dist_[next] > dist_[here] + next_dist){
+				dist_[next] = dist_[here] + next_dist;
+				pq.push({dist_[next], next});
 			}
 		}
 	}
+	
 	for(int i = 1; i <= n; i++){
-		fill(dist2, dist2+1004, INF);
-		dist2[i] = 0;
-		pq.push({i, 0});
+		fill(dist, dist + 1004, 1e9);
+		dist[i] = 0;
+		pq.push({0, i});
 		while(pq.size()){
-			int here = pq.top().first;
-			int here_dist = pq.top().second;
+			int here = pq.top().second;
+			int here_dist = pq.top().first;
 			pq.pop();
-			if(dist2[here] != here_dist) continue;
-			for(auto j : adj[here]){
-				int next = j.first;
-				int next_dist = j.second;
-				if(dist2[next] > dist2[here] + next_dist){
-					dist2[next] = dist2[here] + next_dist;
-					pq.push({next, dist2[next]});
+			if(dist[here] != here_dist) continue;
+			for(auto to : adj[here]){
+				int next = to.second;
+				int next_dist = to.first;
+				if(dist[next] > dist[here] + next_dist){
+					dist[next] = dist[here] + next_dist;
+					pq.push({dist[next], next});
 				}
 			}
 		}
-		if(dist[i] != INF || dist2[x] != INF) ret = max(ret, dist[i] + dist2[x]);
+		ret = max(ret, dist[x] + dist_[i]);
 	}
 	cout << ret << "\n";
 }
