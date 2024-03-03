@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
-string s;
 int n, dp[2504][2504], dp2[2504];
+string s;
 
 int go(int here){
 	if(here == n) return 0;
@@ -13,7 +13,7 @@ int go(int here){
 		if(dp[here][size]) ret = min(ret, go(here + size) + 1);
 	}
 	return ret;
-} 
+}
 int main(){
 	cin >> s;
 	n = s.size();
@@ -30,6 +30,7 @@ int main(){
 		}
 	}
 	fill(dp2, dp2 + 2504, 1e9);
+	
 	cout << go(0) << "\n";
 	return 0;
 }
