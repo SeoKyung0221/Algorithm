@@ -1,17 +1,16 @@
 #include<bits/stdc++.h>
 using namespace std;
-typedef long long ll;
-ll want, m, n, a[1004], b[1004], a_psum[2008], b_psum[2008], ret;
-map<ll, ll> aCnt, bCnt;
+int want, m, n, a[1004], b[1004], a_psum[2008], b_psum[2008], ret;
+map<int, int> aCnt, bCnt;
 
-void make(ll n, ll psum[], map<ll, ll> & mp){ 
-    for(int interval = 1; interval <= n; interval++){
-        for(int start = interval; start <= n + interval - 1; start++){
-            ll sum = psum[start] - psum[start - interval];
-            mp[sum]++;   
-            if(interval == n) break;
-        } 
-    }   
+void makePizza(int k, map<int, int> &mp, int psum[]){
+	for(int size = 1; size <= k; size++){
+		for(int start = 1; start <= k; start++){
+			int sum = psum[start + size - 1] - psum[start - 1];
+			mp[sum]++;
+			if(size == k) break;
+		}
+	}
 }
 int main(){
 	cin >> want >> m >> n;
@@ -29,11 +28,10 @@ int main(){
 	for(int i = n + 1; i <= 2 * n; i++){
 		b_psum[i] = b_psum[i - 1] + b[i - n];
 	}
-	make(m, a_psum, aCnt); 
-    make(n, b_psum, bCnt); 
+	makePizza(m, aCnt, a_psum);
+	makePizza(n, bCnt, b_psum);
 	
 	ret = aCnt[want] + bCnt[want];
-	
 	for(int i = 1; i < want; i++){
 		ret += (aCnt[i] * bCnt[want - i]);
 	}
