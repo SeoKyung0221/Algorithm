@@ -26,16 +26,23 @@ void go(int y, int x, int sum, int cnt){
 }
 
 void go2(int y, int x){
-	for(int j = 0; j < 4; j++){
-		int ans = a[y][x];
-		for(int i = 0; i < 4; i++){
-			if(i == j) continue;
-			int ny = y + dy[i];
-			int nx = x + dx[i];
-			if(ny < 0 || ny >= n || nx < 0 || nx >= m) continue;
-			ans += a[ny][nx];
-		}
+	int ans = a[y][x];
+	int cnt = 0;
+	for(int i = 0; i < 4; i++){
+		int ny = y + dy[i];
+		int nx = x + dx[i];
+		if(ny < 0 || ny >= n || nx < 0 || nx >= m) continue;
+		ans += a[ny][nx];
+		cnt++;
+	}
+	if(cnt < 4){
 		ret = max(ret, ans);
+	}
+	for(int i = 0; i < 4; i++){
+		int ny = y + dy[i];
+		int nx = x + dx[i];
+		if(ny < 0 || ny >= n || nx < 0 || nx >= m) continue;
+		ret = max(ret, ans - a[ny][nx]);
 	}
 	return;
 }
