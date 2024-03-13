@@ -1,45 +1,51 @@
 #include<bits/stdc++.h>
 using namespace std;
 int te, n, a[10] = {6, 2, 5, 5, 4, 5, 6, 3, 7, 6};
-string max_ret, min_dp[104];
+string max_ret, dp[104];
+const string INF = "1111111111111111111111111111111111111111111111111112";
+
+void make_max(int n){
+	if(n & 1){
+		max_ret += "7";
+		n -= 3;
+	}
+	while(n){
+		max_ret += "1";
+		n -= 2;
+	}
+	return;
+}
 
 bool check(string a, string b){
 	if(a.size() == b.size()) return a > b;
 	else return a.size() > b.size();
 }
-void max_go(int n){
-	int temp = n;
-	if(n & 1){
-		max_ret += "7";
-		temp -= 3;
-	}
-	while(temp){
-		max_ret += "1";
-		temp -= 2;
-	}
-	return;
-}
-
-string min_go(int n){
-	if(n == 0 && n != 1) return "";
+string make_min(int idx){
+	if(idx == 0) return "";
 	
-	string &ret = min_dp[n];
-	if(ret != "1111111111111111111111111111111111111111111111111112") return ret;
+	string &ret = dp[idx];
+	if(ret != INF) return ret;
 	
 	for(int i = 0; i <= 9; i++){
-		if(i == 0 && n - a[i] == 0) continue;
-		if(n - a[i] >= 0 && n - a[i] != 1 && check(ret, min_go(n - a[i]) + to_string(i))) ret = min_go(n - a[i]) + to_string(i);
+		if(idx - a[i] == 0 && i == 0) continue;
+		if(idx - a[i] >= 0 && idx - a[i] != 1){
+			if(check(ret, make_min(idx - a[i]) + to_string(i))){
+				ret = make_min(idx - a[i]) + to_string(i);
+			}
+		}
 	}
 	return ret;
 }
 int main(){
 	cin >> te;
 	while(te--){
-		cin >> n;
 		max_ret = "";
-		fill(min_dp, min_dp + 104, "1111111111111111111111111111111111111111111111111112");
+		fill(dp, dp + 104, INF);
 		
-		max_go(n);
-		cout << min_go(n) << " " << max_ret << "\n";
+		cin >> n;
+		
+		make_max(n);
+		
+		cout << make_min(n) << " " << max_ret << "\n";
 	}
 }
