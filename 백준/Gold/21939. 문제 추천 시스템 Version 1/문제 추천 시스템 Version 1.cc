@@ -22,7 +22,7 @@ int main(){
 			cin >> x;
 			if(x == 1){
 				auto it = st.rbegin();
-				cout << (*it).second << "\n";
+				cout << it -> second << "\n";
 			}else if(x == -1){
 				auto it = st.begin();
 				cout << (*it).second << "\n";
