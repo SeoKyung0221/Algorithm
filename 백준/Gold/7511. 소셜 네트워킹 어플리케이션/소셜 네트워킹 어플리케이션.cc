@@ -1,11 +1,10 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-
 int te, n, m, k, a, b, parent[1000004];
 
 int Find(int x) {
     if (x == parent[x]) return x;
-    else return parent[x] = Find(parent[x]); // 경로 압축
+    else return parent[x] = Find(parent[x]);
 }
 
 void Union(int x, int y) {
